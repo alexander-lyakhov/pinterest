@@ -33,7 +33,7 @@ module.exports = {
 
 	outputDir: path.resolve(projectPath, 'dist'),
 
-	baseUrl: process.env.NODE_ENV === 'production'
+	publicPath: process.env.NODE_ENV === 'production'
 		? `/${projectName}/`
 		: '/',
 
