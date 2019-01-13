@@ -1,41 +1,39 @@
-var path = require('path');
+var path = require("path");
 
-var projectName = process.env.PROJECT_NAME
-var projectPath = path.resolve(__dirname, 'apps', projectName);
+var projectName = process.env.PROJECT_NAME;
+var projectPath = path.resolve(__dirname, "apps", projectName);
 
 module.exports = {
+  configureWebpack: config => {
+    config.entry.app = [path.resolve(projectPath, "src/main.js")];
+    config.context = __dirname;
+    config.resolve.alias["@"] = path.resolve(projectPath, "src");
+  },
 
-	configureWebpack: config => {
-		config.entry.app = [path.resolve(projectPath, 'src/main.js')];
-		config.context = __dirname;
-		config.resolve.alias['@'] = path.resolve(projectPath, 'src');
-	},
+  chainWebpack: config => {
+    config.plugin("html").tap(args => {
+      args[0].template = path.resolve(projectPath, "public/index.html");
+      return args;
+    });
 
-	chainWebpack: config => {
-		config
-			.plugin('html')
-			.tap(args => {
-				args[0].template = path.resolve(projectPath, 'public/index.html')
-				return args
-			})
+    config.plugin("copy").tap(() => {
+      return [
+        [
+          {
+            from: path.resolve(projectPath, "public"),
+            to: path.resolve(projectPath, "dist"),
+            toType: "dir",
+            ignore: ["index.html", ".DS_Store"]
+          }
+        ]
+      ];
+    });
+  },
 
-		config
-			.plugin('copy')
-			.tap(args => {
-				return [[{
-					from: path.resolve(projectPath, 'public'),
-					to: path.resolve(projectPath, 'dist'),
-					toType: 'dir',
-					ignore: ['index.html', '.DS_Store']
-				}]]
-			})
-	},
+  outputDir: path.resolve(projectPath, "dist"),
 
-	outputDir: path.resolve(projectPath, 'dist'),
+  //publicPath: process.env.NODE_ENV === 'production'
+  baseUrl: process.env.NODE_ENV === "production" ? `/${projectName}/` : "/",
 
-	publicPath: process.env.NODE_ENV === 'production'
-		? `/${projectName}/`
-		: '/',
-
-	lintOnSave: false
-}
+  lintOnSave: false
+};
