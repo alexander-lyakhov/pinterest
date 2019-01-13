@@ -6,7 +6,7 @@
 </template>
 
 <script>
-	import navBar from '@/components/nav-bar';
+	import navBar from '@/components/nav-bar.vue';
 
 	export default {
 		name: 'App',
@@ -18,4 +18,8 @@
 </script>
 
 <style lang="scss" scoped>
+
+#app {
+	padding-top: 56px;
+}
 </style>
