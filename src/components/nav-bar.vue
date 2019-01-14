@@ -7,6 +7,9 @@
 			<li class="menu--item">
 				<router-link to="boards">Boards</router-link>
 			</li>
+			<li class="menu--item">
+				<router-link to="about">About</router-link>
+			</li>
 		</ul>
 	</nav>
 </template>
