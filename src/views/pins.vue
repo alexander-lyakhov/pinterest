@@ -1,12 +1,25 @@
 ﻿<template>
 	<main>
 		<h2>Pins</h2>
+		<div class="pins">
+			<div class="pin-cart" v-for="item in pins.data" :key="item.id">
+				<div class="pin">
+					<img :src="item.image.original.url">
+				</div>
+			</div>
+		</div>
 	</main>
 </template>
 
 <script>
+	import {mapState} from 'vuex';
+
 	export default {
-		name: 'pins'
+		name: 'pins',
+
+		computed: {
+			...mapState(['pins'])
+		}
 	}
 </script>
 
