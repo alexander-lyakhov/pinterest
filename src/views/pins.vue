@@ -2,7 +2,7 @@
 	<main>
 		<h2>Pins</h2>
 		<div class="pins">
-			<div class="pin-cart" v-for="item in pins.data" :key="item.id">
+			<div class="pin-cart" v-for="item in pinList" :key="item.id">
 				<div class="pin">
 					<img :src="item.image.original.url">
 				</div>
@@ -12,10 +12,28 @@
 </template>
 
 <script>
+	import {getPins} from '@/api'
 	import {mapState} from 'vuex';
 
 	export default {
 		name: 'pins',
+
+		data() {
+			return {
+				pinList: []
+			}
+		},
+
+		mounted() {
+			getPins().then(
+				res => {
+					this.pinList = [].concat(res.data)
+				},
+				err => {
+					console.log(err)
+				}
+			)
+		},
 
 		computed: {
 			...mapState(['pins'])
