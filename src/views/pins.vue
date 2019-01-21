@@ -1,107 +1,131 @@
 ﻿<template>
-	<main>
-		<h2>Pins</h2>
-		<div class="pins">
-			<div class="pin-cart" v-for="item in pinList" :key="item.id">
-				<div class="pin">
-					<img :src="item.image.original.url">
-				</div>
-			</div>
-		</div>
-	</main>
+  <main>
+    <h2>Pins</h2>
+    <div class="pins">
+      <div class="pin-cart" v-for="item in pinList" :key="item.id">
+        <div class="pin">
+          <img :src="item.image.original.url">
+        </div>
+      </div>
+    </div>
+    <a href="#" class="more-pins" @click.prevent="loadMorePins">More...</a>
+  </main>
 </template>
 
 <script>
-	import {getPins} from '@/api'
-	import {mapState} from 'vuex';
+  import {getPins} from '@/api'
+  import {mapState} from 'vuex';
 
-	export default {
-		name: 'pins',
+  export default {
+    name: 'pins',
 
-		data() {
-			return {
-				pinList: []
-			}
-		},
+    data() {
+      return {
+        pinList: []
+      }
+    },
 
-		mounted() {
-			getPins().then(
-				res => {
-					this.pinList = [].concat(res.data)
-				},
-				err => {
-					console.log(err)
-				}
-			)
-		},
+    mounted() {
+      //this.fetchPins();
+    },
 
-		computed: {
-			...mapState(['pins'])
-		}
-	}
+    computed: {
+      ...mapState(['pins'])
+    },
+
+    methods: {
+      fetchPins() {
+        console.log('fetchPins');
+
+        getPins().then(
+          res => {
+            console.log(res.data);
+            this.pinList = [...res.data.data]
+            //this.next = res.data.page.next;
+          },
+          err => {
+            console.log(err)
+          }
+        )
+      },
+
+      loadMorePins() {
+        this.fetchPins();
+      }
+    }
+  }
 </script>
 
 <style lang="scss" scoped>
 
 main {
-	.pins {
-		display: flex;
-		flex-wrap: wrap;
-		padding: 0 4px;
-	}
+  text-align: center;
+  padding-bottom: 32px;
 
-	.pin-cart {
-		//background: #404040;
-		width: 16.66%;
-		height: 256px;
-		//margin: 4px;
-		padding: 4px;
+  .pins {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 4px 32px;
+  }
 
-		.pin {
-			background: #303030;
-			border: 3px solid #39c;
-			border-radius: 12px;
-			widows: 100%;
-			height: 100%;
+  .pin-cart {
+    //background: #404040;
+    width: 16.66%;
+    height: 256px;
+    //margin: 4px;
+    padding: 4px;
 
-			img {
-				width: 100%;
-				height: 100%;
-				object-fit: contain;
-				transition: all 0.2s;
-				cursor: pointer;
-			}
-		}
-	}
+    .pin {
+      background: #303030;
+      border: 3px solid #39c;
+      border-radius: 12px;
+      widows: 100%;
+      height: 100%;
 
-	@media screen and (max-width: 1600px) {
-		.pins .pin-cart {
-			min-width: 20%;
-		}
-	}
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        transition: all 0.2s;
+        cursor: pointer;
+      }
+    }
+  }
 
-	@media screen and (max-width: 1280px) {
-		.pins .pin-cart {
-			min-width: 25%;
-		}
-	}
+  /*
+  .more-pins {
+    margin: 0 auto;
+  }
+  */
 
-	@media screen and (max-width: 1024px) {
-		.pins .pin-cart {
-			min-width: 33.33%;
-		}
-	}
+  @media screen and (max-width: 1600px) {
+    .pins .pin-cart {
+      min-width: 20%;
+    }
+  }
 
-	@media screen and (max-width: 640px) {
-		.pins .pin-cart {
-			min-width: 50%;
-		}
-	}
+  @media screen and (max-width: 1280px) {
+    .pins .pin-cart {
+      min-width: 25%;
+    }
+  }
 
-	@media screen and (max-width: 400px) {
-		.pins .pin-cart {
-			min-width: 100%;
-		}
-	}
+  @media screen and (max-width: 1024px) {
+    .pins .pin-cart {
+      min-width: 33.33%;
+    }
+  }
+
+  @media screen and (max-width: 640px) {
+    .pins .pin-cart {
+      min-width: 50%;
+    }
+  }
+
+  @media screen and (max-width: 400px) {
+    .pins .pin-cart {
+      min-width: 100%;
+    }
+  }
 }
 </style>
