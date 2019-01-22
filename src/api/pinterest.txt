@@ -8,8 +8,8 @@ data: {
 }
 
 get access code:
-	https://api.pinterest.com/oauth/?response_type=token&client_id=5006601696198022940&scope=read_public&state=768uyFys&redirect_uri=https://localhost:8080
-	https://api.pinterest.com/oauth/?response_type=code&client_id=5006601696198022940&scope=read_public&redirect_uri=http://10.96.98.62:8080/
+	https://api.pinterest.com/oauth/?response_type=token&client_id=5006601696198022940&scope=read_public&state=768uyFys&redirect_uri=https://localhost:8080/boards
+	https://api.pinterest.com/oauth/?response_type=code&client_id=5006601696198022940&scope=read_public&redirect_uri=https://localhost:8080/boards
 
 	result
 		https://localhost:8080/?state=768uyFys&code=703b81aefc23e3ba

@@ -2,7 +2,7 @@
 	<nav>
 		<ul class="menu">
 			<li class="menu--item">
-				<router-link to="/">Pins</router-link>
+				<router-link to="pins">Pins</router-link>
 			</li>
 			<li class="menu--item">
 				<router-link to="boards">Boards</router-link>
