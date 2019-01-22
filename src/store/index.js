@@ -16,7 +16,7 @@ export default new Vuex.Store({
 
   mutations: {
   },
-  
+
   actions: {
     getAuthorizationCode() {
       console.log('getAuthorizationCode');

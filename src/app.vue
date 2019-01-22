@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-		<nav-bar />
+		<nav-bar v-if="showNavbar" />
 		<router-view></router-view>
 	</div>
 </template>
@@ -16,9 +16,14 @@
 		},
 
 		created() {
-			console.log('app created', this.$store)
-
+			console.log('app created', this.$route)
 			//this.$store.dispatch('getAuthorizationCode')
+		},
+
+		computed: {
+			showNavbar() {
+				return !this.$route.meta.hideNavbar;
+			}
 		}
 	}
 </script>

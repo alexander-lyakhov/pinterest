@@ -26,7 +26,7 @@
     },
 
     mounted() {
-      this.fetchPins();
+      //this.fetchPins();
     },
 
     computed: {

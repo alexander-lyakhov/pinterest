@@ -12,7 +12,10 @@ export default new Router({
 		{
 			path: "/",
 			name: "login",
-			component: login
+			component: login,
+			meta: {
+				hideNavbar: true
+			}
 		},
 		{
 			path: "/pins",
@@ -33,7 +36,7 @@ export default new Router({
 		},
 		{
 			path: "*",
-			component: login
+			redirect: '/'
 		}
 	]
 });

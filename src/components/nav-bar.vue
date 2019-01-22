@@ -70,7 +70,7 @@ nav {
 					}
 				}
 
-				&.router-link-exact-active {
+				&.router-link-active {
 					color: #fff;
 					background: #c00;
 					border: none;
