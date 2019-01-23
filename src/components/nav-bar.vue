@@ -10,6 +10,9 @@
 			<li class="menu--item">
 				<router-link to="about">About</router-link>
 			</li>
+			<li class="login">
+				<router-link to="/">Login</router-link>
+			</li>
 		</ul>
 	</nav>
 </template>
@@ -76,6 +79,9 @@ nav {
 					border: none;
 				}
 			}
+		}
+		.login {
+			color: #c00;
 		}
 	}
 }
