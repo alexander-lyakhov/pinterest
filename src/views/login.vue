@@ -1,12 +1,12 @@
 ﻿<template>
 	<main>
-		<h2 v-if="!loginError">Authorization...</h2>
+		<h2 v-if="!authorizationError">Authorization...</h2>
 		<h2 v-else>Authorization failed</h2>
 	</main>
 </template>
 
 <script>
-	import {mapActions} from 'vuex';
+	import {mapMutations, mapActions} from 'vuex';
 
 	export default {
 		name: 'login',
@@ -18,7 +18,7 @@
 				scope: 'read_public',
 				redirect: 'https://localhost:8080/login',
 
-				loginError: false
+				authorizationError: false
 			}
 		},
 
@@ -31,32 +31,27 @@
 			} = this;
 
 			const {code} = this.$route.query;
-
-			console.log('login', code)
-
-			if (code) {
-				this
-					.setAuthorizationCode(code)		
-					.then(
-						code => this.getAccessToken(code)
-					)
-					.then(
-						res => {
-							console.log('!!!', res)
-							this.$router.push({name: 'pins'})
-						}
-					)
-					.catch(err => {
-						console.log('=> !!! getAccessToken Error !!!', err)
-						this.loginError = true;
-					})
-			}
-			else {
+			code ?
+				this.authorize(code):
 				window.location.href = `https://api.pinterest.com/oauth/?response_type=${responseType}&client_id=${appID}&scope=${scope}&redirect_uri=${redirect}`;
-			}			
 		},
 		methods: {
-			...mapActions(['setAuthorizationCode', 'getAccessToken']),
+			...mapMutations(['setAuthorizationCode']),
+			...mapActions(['getAccessToken']),
+
+			authorize(code) {
+				this.setAuthorizationCode(code);
+				this
+					.getAccessToken(code)
+					.then(res => {
+						console.log('!!!', res)
+						this.$router.push({name: 'pins'})
+					})
+					.catch(err => {
+						//console.log('=> !!! getAccessToken Error !!!', err)
+						this.authorizationError = true;
+					})
+			}
 		}
 	}
 </script>

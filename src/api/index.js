@@ -3,16 +3,26 @@
 axios.defaults.baseURL = 'https://api.pinterest.com/v1/';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
+axios.interceptors.response.use(
+	res => {
+		console.log('interceptors.response', res)
+		return response;
+	},
+	err => {
+		console.log('interceptors.error', (err.response || {}).status)
+		return Promise.reject(err);
+	}
+
+)
+
 const AUTH_URL = 'https://api.pinterest.com/oauth/';
 const appID = '5006601696198022940';
 const appSecret = '0090984c713e472d75ee28deb9f7d940e010fe54b3ef77e611cbbef7781dcf0b';
 
-let access_token = 'Qxe8XRY_LX93HNcFXvhWeI3AApFewW3ccBXHAaiQDAAAChyRXsOeLxgaW8AAAAA';
-
-export const getPins = () =>
+export const getPins = (token) =>
 	axios.get('me/pins/', {
 		params: {
-			access_token,
+			access_token: token,
 			fields: 'image',
 			limit: 24
 		}

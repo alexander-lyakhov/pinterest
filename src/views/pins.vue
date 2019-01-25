@@ -13,7 +13,7 @@
 </template>
 
 <script>
-	import {mapState} from 'vuex';
+	import {mapState, mapGetters, mapActions} from 'vuex';
 
 	export default {
 		name: 'pins',
@@ -26,16 +26,19 @@
 
 		created() {
 			console.log(this.$route.query.code)
+			this.getPins();
 		},
 		computed: {
-			...mapState(['pins'])
+			...mapGetters(['accessToken'])
 		},
 
 		methods: {
-			fetchPins() {
-				console.log('fetchPins');
+			...mapActions(['fetchPins']),
 
-				getPins().then(
+			getPins() {
+				//this.pinList = [...this.pins.data]
+
+				this.fetchPins(this.$store.state.accessToken).then(
 					res => {
 						console.log(res.data);
 						this.pinList = [...res.data.data]
