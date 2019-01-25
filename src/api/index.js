@@ -6,11 +6,11 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 axios.interceptors.response.use(
 	res => {
 		console.log('interceptors.response', res)
-		return response;
+		Promise.resolve(res);
 	},
 	err => {
 		console.log('interceptors.error', (err.response || {}).status)
-		return Promise.reject(err);
+		Promise.reject(err);
 	}
 
 )

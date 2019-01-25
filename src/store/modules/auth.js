@@ -7,7 +7,7 @@ const state = {
 
 const getters = {
 	accessToken(state) {
-	    console.log('accessToken', state.accessToken)
+		console.log('accessToken', state.accessToken)
 		return state.accessToken;
 	}
 }

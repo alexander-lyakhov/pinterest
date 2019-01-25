@@ -38,7 +38,9 @@
 			getPins() {
 				//this.pinList = [...this.pins.data]
 
-				this.fetchPins(this.$store.state.accessToken).then(
+				console.log('getPins', this.accessToken)
+
+				this.fetchPins(this.accessToken).then(
 					res => {
 						console.log(res.data);
 						this.pinList = [...res.data.data]
