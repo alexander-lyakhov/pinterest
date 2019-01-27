@@ -42,7 +42,6 @@
 
 				this.fetchPins(this.accessToken).then(
 					res => {
-						console.log(res.data);
 						this.pinList = [...res.data.data]
 						//this.next = res.data.page.next;
 					},

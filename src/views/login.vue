@@ -44,11 +44,9 @@
 				this
 					.getAccessToken(code)
 					.then(res => {
-						console.log('!!!', res)
 						this.$router.push({name: 'pins'})
 					})
 					.catch(err => {
-						console.log('=> !!! getAccessToken Error !!!', err)
 						this.authorizationError = true;
 					})
 			}

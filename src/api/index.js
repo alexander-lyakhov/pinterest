@@ -4,15 +4,8 @@ axios.defaults.baseURL = 'https://api.pinterest.com/v1/';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 axios.interceptors.response.use(
-	res => {
-		console.log('interceptors.response', res)
-		return res;
-	},
-	err => {
-		console.log('interceptors.error', (err.response || {}).status)
-		Promise.reject(err);
-	}
-
+	res => res,
+	err => Promise.reject(err)
 )
 
 const AUTH_URL = 'https://api.pinterest.com/oauth/';
