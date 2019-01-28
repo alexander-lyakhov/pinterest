@@ -27,8 +27,7 @@ const actions = {
 
 		return api.getAccessToken(code).then(
 			res => {
-			    console.log('===> res', res)
-				commit('setAccessToken', res.access_token);
+				commit('setAccessToken', res.data.access_token);
 				return res.data.access_token;
 			},
 			err => {

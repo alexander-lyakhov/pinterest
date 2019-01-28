@@ -12,12 +12,13 @@ const AUTH_URL = 'https://api.pinterest.com/oauth/';
 const appID = '5006601696198022940';
 const appSecret = '0090984c713e472d75ee28deb9f7d940e010fe54b3ef77e611cbbef7781dcf0b';
 
-export const getPins = (token) =>
+export const getPins = (token, cursor) =>
 	axios.get('me/pins/', {
 		params: {
 			access_token: token,
 			fields: 'image',
-			limit: 24
+			limit: 24,
+			cursor
 		}
 	})
 

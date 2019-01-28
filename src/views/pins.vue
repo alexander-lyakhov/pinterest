@@ -1,14 +1,14 @@
 ﻿<template>
 	<main>
-		<h2>Pins</h2>
-		<div class="pins">
-			<div class="pin-cart" v-for="item in pinList" :key="item.id">
+		<h2>Pins {{pins.length}} *</h2>
+		<div class="pins" v-if="pins.length > 0">
+			<div class="pin-cart" v-for="item in pins" :key="item.id">
 				<div class="pin">
 					<img :src="item.image.original.url">
 				</div>
 			</div>
 		</div>
-		<a href="#" class="more-pins" @click.prevent="loadMorePins">More...</a>
+		<a href="#" class="more-pins" @click.prevent="getPins">More...</a>
 	</main>
 </template>
 
@@ -25,35 +25,20 @@
 		},
 
 		created() {
-			console.log(this.$route.query.code)
 			this.getPins();
 		},
 		computed: {
-			...mapGetters(['accessToken'])
+			...mapGetters(['accessToken', 'pins'])
 		},
 
 		methods: {
 			...mapActions(['fetchPins']),
 
 			getPins() {
-				//this.pinList = [...this.pins.data]
-
-				console.log('getPins', this.accessToken)
-
-				this.fetchPins(this.accessToken).then(
-					res => {
-						this.pinList = [...res.data.data]
-						//this.next = res.data.page.next;
-					},
-					err => {
-						console.log(err)
-					}
-				)
+				this
+					.fetchPins(this.accessToken)
+					.catch(err => console.log('fetchPins ERROR', err))
 			},
-
-			loadMorePins() {
-				this.fetchPins();
-			}
 		}
 	}
 </script>
