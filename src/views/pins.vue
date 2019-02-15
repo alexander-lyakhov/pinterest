@@ -64,10 +64,11 @@ main {
 
 		.pin {
 			background: #303030;
-			border: 3px solid #39c;
-			border-radius: 12px;
+			//border: 3px solid #39c;
+			//border-radius: 12px;
 			widows: 100%;
 			height: 100%;
+			padding: 6px;
 
 			img {
 				width: 100%;
